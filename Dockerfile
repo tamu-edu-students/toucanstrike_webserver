@@ -17,4 +17,4 @@ RUN cd toucanstrike_webserver && git pull && pip install -r requirements.txt
 
 
 # Set the entrypoint command
-CMD ["python3", "toucanstrike/app.py"]
+CMD ["python3", "toucanstrike_webserver/app.py"]

@@ -13,7 +13,7 @@ EXPOSE 5000
 RUN pip install flask colorama && pip install tqdm && pip install -U "ipython>=7.20"
 # RUN PYTHONPATH=/usr/bin/python pip install -r requirements.txt
 # RUN cd toucanstrike && git checkout webserver && pip install -r requirements.txt && python3 app.py
-RUN cd toucanstrike && git pull && pip install -r requirements.txt
+RUN cd toucanstrike_webserver && git pull && pip install -r requirements.txt
 
 
 # Set the entrypoint command

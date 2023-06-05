@@ -45,6 +45,14 @@ def target(args):
 	try:
 		module = importlib.import_module(f'plugins.{args.target}.model')
 		clf = module.load_model(args.model_path)
+
+		# Train the model with the given train data file
+        if args.train_data is not None:
+            # Load the train data from the file (you need to replace <load_train_data> with the appropriate code)
+            train_data = <load_train_data>(args.train_data)
+            # Train the model with the train data
+            clf.fit(train_data.features, train_data.labels)
+			
 		_set_target(clf)
 		return
 	except Exception as e:
@@ -56,3 +64,17 @@ def target(args):
 def _set_target(clf):
 	global_state.target = clf
 	success_prompt('Target set!')
+
+def load_train_data(file_path):
+    # Assuming the train data file is a CSV file where each row represents a sample,
+    # and the last column contains the labels
+    
+    # Load the CSV file
+    data = np.genfromtxt(file_path, delimiter=',', skip_header=1)
+    
+    # Split the features and labels
+    features = data[:, :-1]  # All columns except the last one
+    labels = data[:, -1]  # Last column
+    
+    # Return the features and labels as a tuple or any appropriate data structure
+    return features, labels

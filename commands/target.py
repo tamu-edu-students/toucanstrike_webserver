@@ -47,10 +47,10 @@ def target(args):
 		clf = module.load_model(args.model_path)
 
 		# # Train the model with the given train data file
-        # if args.train_data is not None:
-        #     train_data = load_train_data(args.train_data)
-        #     # Train the model with the train data
-        #     clf.fit(train_data.features, train_data.labels)
+        if args.train_data is not None:
+            train_data = load_train_data(args.train_data)
+            # Train the model with the train data
+            clf.fit(train_data.features, train_data.labels)
 
 		_set_target(clf)
 		return

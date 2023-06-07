@@ -3,6 +3,7 @@ import importlib.util
 import os
 
 from secml_malware.models import CClassifierEnd2EndMalware, MalConv
+from secml_malware.features import CFeatureExtractor
 
 from constants import *
 from prompts import error_prompt, success_prompt, crash_prompt
@@ -51,7 +52,7 @@ def target(args):
             train_data = load_train_data(args.train_data)
             # Train the model with the train data
             clf.fit(train_data.features, train_data.labels)
-            
+
         _set_target(clf)
         return
     except Exception as e:
@@ -64,16 +65,27 @@ def _set_target(clf):
     global_state.target = clf
     success_prompt('Target set!')
 
-def load_train_data(file_path):
-    # Assuming the train data file is a CSV file where each row represents a sample,
-    # and the last column contains the labels
-    
-    # Load the CSV file
-    data = np.genfromtxt(file_path, delimiter=',', skip_header=1)
-    
+def load_train_data(file_path, label):
     # Split the features and labels
-    features = data[:, :-1]  # All columns except the last one
-    labels = data[:, -1]  # Last column
+    features = extract_features(file_path)  # All columns except the last one
+    labels = label  # Last column
     
     # Return the features and labels as a tuple or any appropriate data structure
     return features, labels
+
+def extract_features(file_path):
+    # Load the file
+    with open(file_path, 'rb') as file:
+        file_content = file.read()
+
+    # Convert the file content, if needed
+    # Example: Convert to bytes
+    file_content_bytes = bytes(file_content)
+
+    # Create a feature extractor instance
+    feature_extractor = CFeatureExtractor()
+
+    # Extract features from the file content
+    features = feature_extractor.extract(file_content_bytes)
+
+    return features

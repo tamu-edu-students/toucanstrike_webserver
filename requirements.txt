@@ -1,8 +1,11 @@
-numpy
-secml
+numpy~=1.24.3
+secml~=0.15.6
 secml-malware
-cmd2
-torch
+cmd2~=2.4.3
+torch~=2.0.1
 git+https://github.com/elastic/ember.git
-python-magic
-colorama
+python-magic~=0.4.27
+colorama~=0.4.6
+pandas~=2.0.2
+scikit-learn~=1.2.2
+libauc~=1.2.0

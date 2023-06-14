@@ -74,10 +74,9 @@ def whitebox_attack(output_path=None):
         y = CArray([1])
         train = True
         try:
-            adv_ds = _perform_optimization(attack, file_path, stats, x, y)
-            # print("model ", net.model, type(net.model))
             if train:
                 net.model.parameters = train_model(attack, x, y, net.model, [1.0]).parameters
+            adv_ds = _perform_optimization(attack, file_path, stats, x, y)
             if output_path is not None:
                 name = os.path.basename(file_path)
                 new_path = os.path.join(output_path, name + '_adv')

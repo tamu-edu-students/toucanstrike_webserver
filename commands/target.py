@@ -75,51 +75,6 @@ def _set_target(clf):
     success_prompt('Target set!')
 
 
-# def train_model(model, label):
-#     # num_classes = 1
-#     try:
-#         model.train(True)
-#         criterion = nn.BCELoss()
-#         optimizer = Adam(model.parameters(), lr=0.01)
-#         scheduler = ReduceLROnPlateau(optimizer, patience=3, verbose=True, factor=0.5,
-#                                       threshold=0.001, min_lr=0.00001, mode='max')
-#         net: CClassifierEnd2EndMalware = global_state.target
-#         print("ok inside train 3")
-#         loss = 0
-#         epochs = 10
-#         y_pred = 0
-#         for file_path in global_state.data_paths:
-#             with open(file_path, 'rb') as handle:
-#                 bytecode = handle.read()
-#         for epoch in range(epochs):
-#             x1 = End2EndModel.bytes_to_numpy(bytecode, net.get_input_max_length(), net.get_embedding_value(),
-#                                              net.get_is_shifting_values())
-#             x = CArray(x1).atleast_2d()
-#             print("check ", torch.from_numpy(x).shape)
-#             y_pred = model.embedd_and_forward(model.embed(x))
-#             print("y_pred ", y_pred)
-#             # y_pred, adv_score, adv_ds, f_obj = attack.run(x, y)
-#             y_pred = [(y_pred.item()) * 1.0]
-#             print("differnce ", y_pred, label)
-#             loss = criterion(torch.tensor(y_pred), torch.tensor(label))
-#             print("ok inside train 4")
-#             loss.requires_grad = True
-#             optimizer.zero_grad()
-#             print("ok inside train 5")
-#             loss.backward()
-#             print("ok inside train 6")
-#             optimizer.step()
-#             net = CClassifierEnd2EndMalware(model)
-#         print("ok inside train 7")
-#         model.eval()
-#         print("ok inside train 8")
-#         scheduler.step(f1_score(y_pred, label))
-#         print("ok inside train 4")
-#         print(loss)
-#     except Exception as e:
-#         print(e)
-#     return model
-
 
 def train_model(model, path, label):
     print("ok inside train 1")
@@ -133,8 +88,6 @@ def train_model(model, path, label):
             net: CClassifierEnd2EndMalware = global_state.target
             x = End2EndModel.bytes_to_numpy(bytecode, net.get_input_max_length(), net.get_embedding_value(),
                                             net.get_is_shifting_values())
-
-            model = MalConv()
             x = np.expand_dims(x, axis=0)
             x = torch.from_numpy(x)
             model.train(True)
